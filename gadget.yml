@@ -1,0 +1,36 @@
+spec: "0.0"
+name: gadget-spi-startx
+uuid: 9f27afe8-56a7-4c89-89ec-ecc98ecf8951
+type: docker
+onboot:
+- name: spi-loader
+  uuid: 03dd749b-2468-4510-9fb0-8116193cb0a2
+  image: ''
+  directory: gadget-spi-loader
+  net: ''
+  readonly: false
+  command: []
+  binds: ['/sys:/sys']
+  capabilities: ['SYS_RAWIO']
+  devices: []
+- name: module-loader
+  uuid: 33b53466-5ed9-4fd1-b2bc-5f691d67baec
+  image: ''
+  directory: module-loader
+  net: ''
+  readonly: false
+  command: []
+  binds: ['/sys:/sys', '/lib/modules:/lib/modules']
+  capabilities: ['SYS_RAWIO', 'SYS_MODULE']
+  devices: []
+services:
+- name: startx
+  uuid: a76ada49-6169-4f2f-a5fc-ae56054a3b93
+  image: ''
+  directory: startx
+  net: host
+  readonly: false
+  command: []
+  binds: ['/tmp:/tmp', '/var/log/:/var/log/', '/var/run/dbus:/var/run/dbus']
+  capabilities: ['SYS_TTY_CONFIG', 'SYS_RAWIO', 'SYS_MODULE']
+  devices: ['/dev/fb0', '/dev/tty0', '/dev/tty2', '/dev/snd', '/dev/input']
